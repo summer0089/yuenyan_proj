@@ -370,7 +370,12 @@ export function DataTable<T extends object = Record<string, unknown>>({
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="p-1.5! text-slate-600 hover:text-primary hover:bg-primary-light rounded-lg transition"
+                              disabled={
+                                actions.isEditDisabled
+                                  ? actions.isEditDisabled(record, globalIndex)
+                                  : false
+                              }
+                              className="p-1.5! text-slate-600 hover:text-primary hover:bg-primary-light rounded-lg transition disabled:opacity-30 disabled:cursor-not-allowed"
                               title={actions.editLabel || "แก้ไขข้อมูล"}
                               onClick={() => actions.onEdit!(record, globalIndex)}
                               icon={<Pencil className="w-4 h-4" />}
@@ -378,18 +383,30 @@ export function DataTable<T extends object = Record<string, unknown>>({
                           )}
 
                           {/* Built-in Delete Button */}
-                          {actions?.onDelete && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="p-1.5! text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
-                              title={actions.deleteLabel || "ลบข้อมูล"}
-                              onClick={() =>
-                                actions.onDelete!(record, globalIndex)
-                              }
-                              icon={<Trash2 className="w-4 h-4" />}
-                            />
-                          )}
+                          {actions?.onDelete && (() => {
+                            const isDeleteDisabled = actions.isDeleteDisabled
+                              ? actions.isDeleteDisabled(record, globalIndex)
+                              : false;
+
+                            return (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                disabled={isDeleteDisabled}
+                                className="p-1.5! text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
+                                title={
+                                  isDeleteDisabled
+                                    ? "ไม่สามารถลบบัญชี Superadmin ได้"
+                                    : actions.deleteLabel || "ลบข้อมูล"
+                                }
+                                onClick={() =>
+                                  !isDeleteDisabled &&
+                                  actions.onDelete!(record, globalIndex)
+                                }
+                                icon={<Trash2 className="w-4 h-4" />}
+                              />
+                            );
+                          })()}
 
                           {/* Custom Action Buttons */}
                           {actions?.customActions?.map((customAction: DataTableAction<T>) => {

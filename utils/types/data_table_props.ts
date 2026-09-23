@@ -33,6 +33,8 @@ export interface DataTableActionOptions<T = object> {
   editLabel?: string;
   deleteLabel?: string;
   customActions?: DataTableAction<T>[];
+  isDeleteDisabled?: (record: T, index: number) => boolean;
+  isEditDisabled?: (record: T, index: number) => boolean;
 }
 
 export interface DataTableProps<T = object> {
