@@ -50,7 +50,7 @@ export function DepartmentForm() {
 
     async function fetchDepartments() {
       try {
-        const res = await fetch("/api/departments");
+        const res = await fetch("/api/department/get");
         const json = await res.json();
         if (!ignore) {
           if (json.success && Array.isArray(json.data)) {
@@ -97,8 +97,8 @@ export function DepartmentForm() {
       setIsSubmitting(true);
       const isEditing = Boolean(editingId);
       const url = isEditing
-        ? `/api/departments/${editingId}`
-        : "/api/departments";
+        ? `/api/department/update/${editingId}`
+        : "/api/department/add";
       const method = isEditing ? "PUT" : "POST";
 
       const res = await fetch(url, {
@@ -157,7 +157,7 @@ export function DepartmentForm() {
       setGeneralError("");
       setSuccessMessage("");
 
-      const res = await fetch(`/api/departments/${deletingDepartment.id}`, {
+      const res = await fetch(`/api/department/delete/${deletingDepartment.id}`, {
         method: "DELETE",
       });
 
@@ -165,6 +165,7 @@ export function DepartmentForm() {
 
       if (!res.ok || !json.success) {
         setGeneralError(json.message || "ไม่สามารถลบหน่วยงานได้");
+        setDeletingDepartment(null);
         return;
       }
 
@@ -180,6 +181,7 @@ export function DepartmentForm() {
     } catch (err: unknown) {
       console.error(err);
       setGeneralError("เกิดข้อผิดพลาดในการเชื่อมต่อเพื่อลบข้อมูล");
+      setDeletingDepartment(null);
     } finally {
       setIsDeleting(false);
     }

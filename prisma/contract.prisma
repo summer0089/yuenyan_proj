@@ -1,21 +1,181 @@
 // use prisma-8
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String?
-  name      String?
-  posts     Post[]
+model Department {
+  id        String   @id @default(cuid(2))
+  name      String   @unique
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
+
+  users     User[]
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String?
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  createdAt TimestamptzString @default(now())
-  updatedAt temporal.updatedAtString()
+model User {
+  id            String    @id @default(cuid(2))
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+
+  // -----------------------------------------------------------
+  // สิทธิ์และการจัดการสำหรับ Admin ระบบ Yuenyan (Better-Auth Admin Plugin)
+  // -----------------------------------------------------------
+  role          String    @default("user")   // "user" | "admin" | "superadmin"
+  isSuperAdmin  Boolean   @default(false)   // สิทธิ์สูงสุดสำหรับผู้ดูแลระบบ Yuenyan ทั้งหมด
+  permissions   String[]                    // สิทธิ์เฉพาะทาง เช่น ["users:manage", "clients:manage", "departments:manage"]
+  
+  // สถานะการระงับการใช้งาน (จัดการโดย Admin ผ่าน Better-Auth)
+  banned        Boolean   @default(false)
+  banReason     String?
+
+  // ข้อมูลความปลอดภัยเพิ่มเติมสำหรับ Admin
+  twoFactorEnabled Boolean @default(false)  // บังคับหรือเปิดใช้ 2FA สำหรับแอดมิน
+  lastLoginAt      TimestamptzString?
+
+  // -----------------------------------------------------------
+  // ข้อมูลพนักงานและสังกัด (Employee Profile)
+  // -----------------------------------------------------------
+  firstName     String
+  lastName      String
+  position      String
+  phoneNumber   String
+  isActive      Boolean   @default(true)
+
+  departmentId  String
+  department    Department @relation(fields: [departmentId], references: [id])
+
+  createdAt     TimestamptzString @default(now())
+  updatedAt     temporal.updatedAtString()
+
+  sessions           Session[]
+  accounts           Account[]
+  oauthClients       OauthClient[]
+  oauthAccessTokens  OauthAccessToken[]
+  oauthRefreshTokens OauthRefreshToken[]
+  oauthConsents      OauthConsent[]
+}
+
+model Session {
+  id             String   @id @default(cuid(2))
+  expiresAt      TimestamptzString
+  token          String   @unique
+  createdAt      TimestamptzString @default(now())
+  updatedAt      temporal.updatedAtString()
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // รองรับ Admin Impersonation (แอดมินสลับเข้าดูหน้าจอในฐานะผู้ใช้อื่นเพื่อซัพพอร์ตระบบ)
+  impersonatedBy String?
+}
+
+model Account {
+  id                    String   @id @default(cuid(2))
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  TimestamptzString?
+  refreshTokenExpiresAt TimestamptzString?
+  scope                 String?
+  password              String?
+  createdAt             TimestamptzString @default(now())
+  updatedAt             temporal.updatedAtString()
+}
+
+model Verification {
+  id         String   @id @default(cuid(2))
+  identifier String
+  value      String
+  expiresAt  TimestamptzString
+  createdAt  TimestamptzString @default(now())
+  updatedAt  temporal.updatedAtString()
+}
+
+// -------------------------------------------------------------
+// Better-Auth OAuth 2.1 Provider (IdP) Models
+// -------------------------------------------------------------
+
+model OauthClient {
+  id                               String   @id @default(cuid(2))
+  clientId                         String   @unique
+  clientSecret                     String?
+  name                             String?
+  uri                              String?
+  icon                             String?
+  contacts                         String[]
+  tos                              String?
+  policy                           String?
+  redirectUris                     String[]
+  postLogoutRedirectUris           String[]
+  backchannelLogoutUri             String?
+  backchannelLogoutSessionRequired Boolean?
+  tokenEndpointAuthMethod          String?
+  grantTypes                       String[]
+  responseTypes                    String[]
+  scopes                           String[]
+  clientCredentialsScopes          String[]
+  userId                           String?
+  user                             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  disabled                         Boolean  @default(false)
+  skipConsent                      Boolean?
+  enableEndSession                 Boolean?
+  subjectType                      String?
+  requirePKCE                      Boolean?
+  dpopBoundAccessTokens            Boolean  @default(false)
+  createdAt                        TimestamptzString @default(now())
+  updatedAt                        temporal.updatedAtString()
+
+  accessTokens  OauthAccessToken[]
+  refreshTokens OauthRefreshToken[]
+  consents      OauthConsent[]
+}
+
+model OauthAccessToken {
+  id                  String   @id @default(cuid(2))
+  token               String   @unique
+  clientId            String
+  client              OauthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  sessionId           String?
+  userId              String?
+  user                User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referenceId         String?
+  authorizationCodeId String?
+  refreshId           String?
+  resources           String[]
+  scopes              String[]
+  expiresAt           TimestamptzString
+  createdAt           TimestamptzString @default(now())
+  revoked             TimestamptzString?
+}
+
+model OauthRefreshToken {
+  id                  String   @id @default(cuid(2))
+  token               String   @unique
+  clientId            String
+  client              OauthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  sessionId           String?
+  userId              String
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  referenceId         String?
+  authorizationCodeId String?
+  resources           String[]
+  scopes              String[]
+  expiresAt           TimestamptzString
+  createdAt           TimestamptzString @default(now())
+  revoked             TimestamptzString?
+}
+
+model OauthConsent {
+  id          String   @id @default(cuid(2))
+  clientId    String
+  client      OauthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scopes      String[]
+  createdAt   TimestamptzString @default(now())
+  updatedAt   temporal.updatedAtString()
 }
