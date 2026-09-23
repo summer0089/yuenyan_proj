@@ -1,6 +1,6 @@
 import React from "react";
-import DepartmentForm from "@/components/form_departments/form";
-import { Breadcrumb } from "@/components/form_ui/Breadcrumb";
+import DepartmentForm from "@/components/forms/department/form";
+import { Breadcrumb } from "@/components/form_controls/Breadcrumb";
 import { Building } from "lucide-react";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function DepartmentsPage() {
   return (
-    <div className="min-h-full bg-[#f8f9fa] text-slate-800">
+    <div className="min-h-full bg-background text-foreground">
       {/* Main Page Container */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         {/* Breadcrumb */}
@@ -26,7 +26,7 @@ export default function DepartmentsPage() {
         {/* Page Title & Description */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-sm">
               <Building className="w-5 h-5" />
             </div>
             <div>

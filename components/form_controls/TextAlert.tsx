@@ -10,20 +10,20 @@ const variantStyles: Record<
   { container: string; iconColor: string }
 > = {
   error: {
-    container: "bg-red-50 border-red-200 text-red-700",
-    iconColor: "text-red-500",
+    container: "bg-danger-light border-danger/30 text-danger",
+    iconColor: "text-danger",
   },
   warning: {
-    container: "bg-amber-50 border-amber-200 text-amber-800",
-    iconColor: "text-amber-500",
+    container: "bg-warning-light border-warning/30 text-warning",
+    iconColor: "text-warning",
   },
   success: {
-    container: "bg-emerald-50 border-emerald-200 text-emerald-800",
-    iconColor: "text-emerald-500",
+    container: "bg-success-light border-success/30 text-success",
+    iconColor: "text-success",
   },
   info: {
-    container: "bg-blue-50 border-blue-200 text-blue-800",
-    iconColor: "text-blue-500",
+    container: "bg-info-light border-info/30 text-info",
+    iconColor: "text-info",
   },
 };
 

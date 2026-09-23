@@ -5,8 +5,9 @@ import { departmentSchema } from "@/utils/validations/department_validation";
 // GET /api/departments - Fetch all departments
 export async function GET() {
   try {
-    const departments = await db.orm.public.Departments
-      .orderBy((d) => d.createdAt.desc())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const departments = await (db.orm.public as any).Departments
+      .orderBy((d: { createdAt: { desc: () => unknown } }) => d.createdAt.desc())
       .all();
 
     return NextResponse.json({
@@ -43,8 +44,9 @@ export async function POST(req: NextRequest) {
     const { name } = validation.data;
 
     // Check for duplicate department name
-    const existing = await db.orm.public.Departments
-      .where((d) => d.name.eq(name))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const existing = await (db.orm.public as any).Departments
+      .where((d: { name: { eq: (v: string) => unknown } }) => d.name.eq(name))
       .first();
 
     if (existing) {
@@ -57,7 +59,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const created = await db.orm.public.Departments.create({ name });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const created = await (db.orm.public as any).Departments.create({ name });
 
     return NextResponse.json(
       {

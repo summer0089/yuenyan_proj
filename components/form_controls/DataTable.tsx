@@ -195,7 +195,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
                 setCurrentPage(1);
               }}
               placeholder={searchPlaceholder}
-              className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:border-[#1a73e8] focus:ring-1 focus:ring-[#1a73e8] placeholder-slate-400 transition"
+              className="w-full pl-9 pr-4 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-slate-400 transition"
             />
           </div>
 
@@ -227,7 +227,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
                         : ""
                     } ${
                       isSorted
-                        ? "text-[#1a73e8] bg-blue-50/50"
+                        ? "text-primary bg-primary-light/50"
                         : "text-slate-600"
                     } ${
                       col.align === "center"
@@ -251,9 +251,9 @@ export function DataTable<T extends object = Record<string, unknown>>({
                         <span className="shrink-0 transition-colors">
                           {isSorted ? (
                             sortDirection === "asc" ? (
-                              <ArrowUp className="w-3.5 h-3.5 text-[#1a73e8]" />
+                              <ArrowUp className="w-3.5 h-3.5 text-primary" />
                             ) : (
-                              <ArrowDown className="w-3.5 h-3.5 text-[#1a73e8]" />
+                              <ArrowDown className="w-3.5 h-3.5 text-primary" />
                             )
                           ) : (
                             <ArrowUpDown className="w-3.5 h-3.5 text-slate-400 opacity-40 group-hover:opacity-100" />
@@ -291,7 +291,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
                   className="py-12 text-center text-slate-500"
                 >
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <div className="w-6 h-6 border-2 border-slate-200 border-t-[#1a73e8] rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-slate-200 border-t-primary rounded-full animate-spin" />
                     <span className="text-xs">กำลังโหลดข้อมูล...</span>
                   </div>
                 </td>
@@ -370,7 +370,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="p-1.5! text-slate-600 hover:text-[#1a73e8] hover:bg-blue-50 rounded-lg transition"
+                              className="p-1.5! text-slate-600 hover:text-primary hover:bg-primary-light rounded-lg transition"
                               title={actions.editLabel || "แก้ไขข้อมูล"}
                               onClick={() => actions.onEdit!(record, globalIndex)}
                               icon={<Pencil className="w-4 h-4" />}
@@ -451,7 +451,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
                 id="data-table-page-size"
                 value={currentPageSize}
                 onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                className="h-8 px-2 py-1 text-xs text-slate-700 bg-white border border-slate-200 rounded-lg hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#1a73e8]/20 focus:border-[#1a73e8] cursor-pointer transition"
+                className="h-8 px-2 py-1 text-xs text-slate-700 bg-white border border-slate-200 rounded-lg hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer transition"
               >
                 {resolvedPageSizeOptions.map((size) => (
                   <option key={size} value={size}>
@@ -467,7 +467,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
               type="button"
               disabled={safeCurrentPage <= 1}
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              className="p-1.5 rounded-md border border-slate-200 enabled:hover:bg-slate-50 enabled:hover:text-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+              className="p-1.5 rounded-md border border-slate-200 enabled:hover:bg-slate-50 enabled:hover:text-slate-800 disabled:opacity-40 enabled:cursor-pointer disabled:cursor-not-allowed transition"
               aria-label="Previous Page"
               title="หน้าก่อนหน้า"
             >
@@ -482,7 +482,7 @@ export function DataTable<T extends object = Record<string, unknown>>({
               type="button"
               disabled={safeCurrentPage >= totalPages}
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              className="p-1.5 rounded-md border border-slate-200 enabled:hover:bg-slate-50 enabled:hover:text-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+              className="p-1.5 rounded-md border border-slate-200 enabled:hover:bg-slate-50 enabled:hover:text-slate-800 disabled:opacity-40 enabled:cursor-pointer disabled:cursor-not-allowed transition"
               aria-label="Next Page"
               title="หน้าถัดไป"
             >

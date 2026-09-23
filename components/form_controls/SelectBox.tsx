@@ -44,8 +44,8 @@ export const SelectBox = forwardRef<HTMLSelectElement, SelectBoxProps>(
             disabled={disabled}
             className={`w-full px-4 py-3 pr-10 rounded-lg border text-slate-900 bg-white focus:outline-none transition-colors appearance-none disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed ${
               error
-                ? "border-red-500 focus:ring-1 focus:ring-red-500"
-                : "border-slate-300 focus:border-[#1a73e8] focus:ring-1 focus:ring-[#1a73e8] hover:border-slate-400"
+                ? "border-danger focus:ring-1 focus:ring-danger"
+                : "border-slate-300 focus:border-primary focus:ring-1 focus:ring-primary hover:border-slate-400"
             } ${!value ? "text-slate-400" : "text-slate-900"} ${className}`}
             {...rest}
           >
@@ -72,7 +72,7 @@ export const SelectBox = forwardRef<HTMLSelectElement, SelectBoxProps>(
         {error && (
           <p
             id={selectId ? `${selectId}-error` : undefined}
-            className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium animate-fade-in"
+            className="mt-1.5 text-xs text-danger flex items-center gap-1 font-medium animate-fade-in"
           >
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             <span>{error}</span>

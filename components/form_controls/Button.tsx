@@ -7,15 +7,15 @@ import {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "text-white bg-[#1a73e8] hover:bg-[#1557b0] active:bg-[#0f4494] focus:ring-[#1a73e8] shadow-sm",
+    "text-primary-foreground bg-primary hover:bg-primary-hover active:bg-primary-active focus:ring-primary shadow-sm",
   secondary:
-    "text-slate-800 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 focus:ring-slate-400",
+    "text-slate-800 bg-secondary hover:bg-secondary-hover active:bg-secondary-active border border-secondary-border focus:ring-primary shadow-2xs",
   outline:
-    "border border-slate-300 bg-transparent text-slate-700 hover:bg-slate-50 active:bg-slate-100 focus:ring-[#1a73e8]",
+    "border border-slate-300 bg-transparent text-slate-700 hover:bg-primary-light/60 hover:text-primary active:bg-primary-light focus:ring-primary",
   ghost:
-    "bg-transparent text-slate-700 hover:bg-slate-100 active:bg-slate-200 focus:ring-slate-400",
+    "bg-transparent text-slate-700 hover:bg-primary-light/50 hover:text-primary active:bg-primary-light/80 focus:ring-primary",
   danger:
-    "text-white bg-red-600 hover:bg-red-700 active:bg-red-800 focus:ring-red-500 shadow-sm",
+    "text-danger-foreground bg-danger hover:bg-danger-hover active:bg-danger-active focus:ring-danger shadow-sm",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

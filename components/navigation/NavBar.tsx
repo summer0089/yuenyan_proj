@@ -9,7 +9,7 @@ import {
   NavMenuItem,
   UserProfile,
 } from "@/utils/types/navbar_props";
-import { Button } from "@/components/form_ui/Button";
+import { Button } from "@/components/form_controls/Button";
 import {
   ChevronDown,
   User,
@@ -42,7 +42,7 @@ const DEFAULT_MENUS: NavMenuItem[] = [
       {
         title: "จองห้องประชุมใหม่",
         href: "/bookings/new",
-        icon: <PlusCircle className="w-4 h-4 text-[#1a73e8]" />,
+        icon: <PlusCircle className="w-4 h-4 text-primary" />,
         description: "เลือกห้องประชุม วันและช่วงเวลาที่ต้องการ",
       },
       {
@@ -65,18 +65,18 @@ const DEFAULT_MENUS: NavMenuItem[] = [
     submenu: [
       {
         title: "ข้อมูลพื้นฐาน",
-        icon: <Layers className="w-4 h-4 text-blue-600" />,
+        icon: <Layers className="w-4 h-4 text-primary" />,
         description: "กำหนดหน่วยงาน ห้องประชุม และอุปกรณ์",
         submenu: [
           {
             title: "หน่วยงานภายใน",
             href: "/c/departments",
-            icon: <Building2 className="w-3.5 h-3.5 text-blue-500" />,
+            icon: <Building2 className="w-3.5 h-3.5 text-primary" />,
           },
           {
             title: "ห้องประชุมและสถานที่",
             href: "/c/rooms",
-            icon: <DoorClosed className="w-3.5 h-3.5 text-blue-500" />,
+            icon: <DoorClosed className="w-3.5 h-3.5 text-primary" />,
           },
         ],
       },
@@ -243,7 +243,7 @@ export function NavBar({
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-base text-slate-800 tracking-tight group-hover:text-[#1a73e8] transition-colors leading-tight">
+              <span className="font-bold text-base text-slate-800 tracking-tight group-hover:text-primary transition-colors leading-tight">
                 {title}
               </span>
             </div>
@@ -252,7 +252,7 @@ export function NavBar({
           {badge && (
             <div className="hidden sm:flex items-center gap-2">
               <span className="text-slate-300 font-light">|</span>
-              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 text-[#1a73e8] border border-blue-100">
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary-light text-primary border border-primary-border">
                 {badge}
               </span>
             </div>
@@ -274,8 +274,8 @@ export function NavBar({
                   key={item.menu_title}
                   href={item.href || "#"}
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
-                      ? "text-[#1a73e8] bg-blue-50/80 font-semibold"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    ? "text-primary bg-primary-light font-semibold"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                     }`}
                 >
                   {item.icon && <span>{item.icon}</span>}
@@ -297,15 +297,15 @@ export function NavBar({
                     setActiveMenuIndex(isOpen ? null : menuIdx)
                   }
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${isOpen
-                      ? "text-[#1a73e8] bg-blue-50/80"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    ? "text-primary bg-primary-light"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                     }`}
                   aria-expanded={isOpen}
                 >
                   {item.icon && <span>{item.icon}</span>}
                   <span>{item.menu_title}</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180 text-[#1a73e8]" : "text-slate-400"
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180 text-primary" : "text-slate-400"
                       }`}
                   />
                 </button>
@@ -338,8 +338,8 @@ export function NavBar({
                                 type="button"
                                 onClick={() => toggleAccordion(accordionKey)}
                                 className={`w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${isAccordionOpen
-                                    ? "bg-blue-50/70 text-[#1a73e8]"
-                                    : "text-slate-700 hover:bg-slate-50"
+                                  ? "bg-primary-light text-primary"
+                                  : "text-slate-700 hover:bg-slate-50"
                                   }`}
                               >
                                 <div className="flex items-center gap-2">
@@ -348,15 +348,15 @@ export function NavBar({
                                 </div>
                                 <ChevronDown
                                   className={`w-3.5 h-3.5 transition-transform duration-200 ${isAccordionOpen
-                                      ? "rotate-180 text-[#1a73e8]"
-                                      : "text-slate-400"
+                                    ? "rotate-180 text-primary"
+                                    : "text-slate-400"
                                     }`}
                                 />
                               </button>
 
                               {/* Nested Accordion Content */}
                               {isAccordionOpen && (
-                                <div className="pl-6 pr-2 py-1 space-y-0.5 border-l-2 border-blue-200 ml-4 mt-1 mb-1">
+                                <div className="pl-6 pr-2 py-1 space-y-0.5 border-l-2 border-primary-border ml-4 mt-1 mb-1">
                                   {sub.submenu?.map((nested) => {
                                     const isNestedActive =
                                       pathname === nested.href;
@@ -365,8 +365,8 @@ export function NavBar({
                                         key={nested.title}
                                         href={nested.href || "#"}
                                         className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors ${isNestedActive
-                                            ? "font-semibold text-[#1a73e8] bg-blue-50"
-                                            : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                                          ? "font-semibold text-primary bg-primary-light"
+                                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                                           }`}
                                       >
                                         {nested.icon && (
@@ -389,8 +389,8 @@ export function NavBar({
                             key={sub.title}
                             href={sub.href || "#"}
                             className={`flex items-start gap-2.5 px-3 py-2 rounded-xl text-xs transition-colors ${isSubActive
-                                ? "bg-blue-50 text-[#1a73e8] font-semibold"
-                                : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                              ? "bg-primary-light text-primary font-semibold"
+                              : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                               }`}
                           >
                             {sub.icon && (
@@ -427,11 +427,11 @@ export function NavBar({
               <button
                 type="button"
                 onClick={() => setIsUserMenuOpen((prev) => !prev)}
-                className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 transition-colors cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#1a73e8]/20"
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-slate-100 transition-colors cursor-pointer group focus:outline-none focus:ring-2 focus:ring-primary/20"
                 aria-label="User profile menu"
                 aria-expanded={isUserMenuOpen}
               >
-                <div className="relative w-9 h-9 rounded-full overflow-hidden bg-linear-to-tr from-blue-500 to-indigo-600 ring-2 ring-slate-200 group-hover:ring-[#1a73e8] transition-all flex items-center justify-center text-white font-semibold text-xs shadow-xs">
+                <div className="relative w-9 h-9 rounded-full overflow-hidden bg-linear-to-tr from-blue-500 to-indigo-600 ring-2 ring-slate-200 group-hover:ring-primary transition-all flex items-center justify-center text-white font-semibold text-xs shadow-xs">
                   {currentUser.profile_image ? (
                     <Image
                       src={currentUser.profile_image}
@@ -457,7 +457,7 @@ export function NavBar({
                 </div>
 
                 <ChevronDown
-                  className={`hidden lg:block w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isUserMenuOpen ? "rotate-180 text-[#1a73e8]" : ""
+                  className={`hidden lg:block w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isUserMenuOpen ? "rotate-180 text-primary" : ""
                     }`}
                 />
               </button>
@@ -467,7 +467,7 @@ export function NavBar({
                 <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                   {/* User Profile Header */}
                   <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full overflow-hidden bg-linear-to-tr from-blue-500 to-indigo-600 shrink-0 flex items-center justify-center text-white font-bold text-sm ring-2 ring-blue-100">
+                    <div className="w-11 h-11 rounded-full overflow-hidden bg-linear-to-tr from-blue-500 to-indigo-600 shrink-0 flex items-center justify-center text-white font-bold text-sm ring-2 ring-primary-border">
                       {currentUser.profile_image ? (
                         <Image
                           src={currentUser.profile_image}
@@ -490,7 +490,7 @@ export function NavBar({
                         </div>
                       )}
                       {currentUser.role && (
-                        <div className="inline-block text-[10px] font-medium text-[#1a73e8] bg-blue-50 px-1.5 py-0.5 rounded mt-0.5">
+                        <div className="inline-block text-[10px] font-medium text-primary bg-primary-light px-1.5 py-0.5 rounded mt-0.5">
                           {currentUser.role}
                         </div>
                       )}
@@ -609,8 +609,8 @@ export function NavBar({
                     key={item.menu_title}
                     href={item.href || "#"}
                     className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${isActive
-                        ? "bg-blue-50 text-[#1a73e8] font-semibold"
-                        : "text-slate-700 hover:bg-slate-50"
+                      ? "bg-primary-light text-primary font-semibold"
+                      : "text-slate-700 hover:bg-slate-50"
                       }`}
                   >
                     {item.icon && <span>{item.icon}</span>}
@@ -634,7 +634,7 @@ export function NavBar({
                       <span>{item.menu_title}</span>
                     </div>
                     <ChevronDown
-                      className={`w-4 h-4 text-slate-400 transition-transform ${isTopOpen ? "rotate-180 text-[#1a73e8]" : ""
+                      className={`w-4 h-4 text-slate-400 transition-transform ${isTopOpen ? "rotate-180 text-primary" : ""
                         }`}
                     />
                   </button>
@@ -664,13 +664,13 @@ export function NavBar({
                                   <span>{sub.title}</span>
                                 </div>
                                 <ChevronDown
-                                  className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isSubOpen ? "rotate-180 text-[#1a73e8]" : ""
+                                  className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isSubOpen ? "rotate-180 text-primary" : ""
                                     }`}
                                 />
                               </button>
 
                               {isSubOpen && (
-                                <div className="pl-6 pr-2 py-1 space-y-1 border-l-2 border-blue-200 ml-4 mb-1">
+                                <div className="pl-6 pr-2 py-1 space-y-1 border-l-2 border-primary-border ml-4 mb-1">
                                   {sub.submenu?.map((nested) => (
                                     <Link
                                       key={nested.title}

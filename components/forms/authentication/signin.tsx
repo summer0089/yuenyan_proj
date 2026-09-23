@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { signinSchema } from "@/utils/validations/signin_form_validation";
-import { TextBox } from "@/components/form_ui/TextBox";
-import { PasswordBox } from "@/components/form_ui/PasswordBox";
-import { CheckBox } from "@/components/form_ui/CheckBox";
-import { Button } from "@/components/form_ui/Button";
-import { TextAlert } from "@/components/form_ui/TextAlert";
-import { MessageBox } from "@/components/form_ui/MessageBox";
+import { TextBox } from "@/components/form_controls/TextBox";
+import { PasswordBox } from "@/components/form_controls/PasswordBox";
+import { CheckBox } from "@/components/form_controls/CheckBox";
+import { Button } from "@/components/form_controls/Button";
+import { TextAlert } from "@/components/form_controls/TextAlert";
+import { MessageBox } from "@/components/form_controls/MessageBox";
 
 interface FieldErrors {
   email?: string;
@@ -144,7 +144,7 @@ export default function SigninForm() {
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
             <Link
               href="#"
-              className="text-[#1a73e8] hover:text-[#1557b0] font-medium transition-colors hover:underline"
+              className="text-primary hover:text-primary-hover font-medium transition-colors hover:underline"
             >
               ลืมรหัสผ่านใช่หรือไม่?
             </Link>
@@ -152,7 +152,7 @@ export default function SigninForm() {
               <span>ยังไม่มีบัญชีใช่ไหม?</span>
               <Link
                 href="/u/signup"
-                className="ml-1.5 text-[#1a73e8] hover:text-[#1557b0] font-semibold transition-colors hover:underline"
+                className="ml-1.5 text-primary hover:text-primary-hover font-semibold transition-colors hover:underline"
               >
                 ลงทะเบียนใช้งาน
               </Link>

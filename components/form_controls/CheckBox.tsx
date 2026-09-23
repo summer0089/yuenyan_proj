@@ -80,9 +80,9 @@ export const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(
               checked={isChecked}
               onChange={handleChange}
               disabled={isDisabled}
-              className={`w-4 h-4 text-[#1a73e8] rounded border-slate-300 focus:ring-[#1a73e8] focus:ring-2 focus:ring-offset-1 transition duration-150 enabled:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+              className={`w-4 h-4 text-primary accent-primary rounded border-slate-300 focus:ring-primary focus:ring-2 focus:ring-offset-1 transition duration-150 enabled:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
                 error
-                  ? "border-red-500 focus:ring-red-500 text-red-600"
+                  ? "border-danger focus:ring-danger text-danger accent-danger"
                   : "hover:border-slate-400"
               } ${className}`}
               {...rest}
@@ -117,7 +117,7 @@ export const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(
         </div>
 
         {error && (
-          <p className="mt-1 text-xs text-red-600 flex items-center gap-1 font-medium animate-fade-in">
+          <p className="mt-1 text-xs text-danger flex items-center gap-1 font-medium animate-fade-in">
             <AlertCircle className="w-3.5 h-3.5 shrink-0" />
             <span>{error}</span>
           </p>
@@ -209,7 +209,7 @@ export const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
       </CheckBoxGroupContext.Provider>
 
       {error && (
-        <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium animate-fade-in">
+        <p className="mt-1.5 text-xs text-danger flex items-center gap-1 font-medium animate-fade-in">
           <AlertCircle className="w-3.5 h-3.5 shrink-0" />
           <span>{error}</span>
         </p>

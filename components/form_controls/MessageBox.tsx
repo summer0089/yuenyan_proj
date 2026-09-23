@@ -86,7 +86,7 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
 
       {/* Spinner */}
       {isSpinnerVisible && (
-        <div className="w-8 h-8 border-4 border-slate-200 border-t-[#1a73e8] rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-4 border-slate-200 border-t-primary rounded-full animate-spin mx-auto" />
       )}
 
       {/* Extra custom content */}

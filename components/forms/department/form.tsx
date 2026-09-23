@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { TextBox } from "@/components/form_ui/TextBox";
-import { Button } from "@/components/form_ui/Button";
-import { TextAlert } from "@/components/form_ui/TextAlert";
-import { DataTable } from "@/components/form_ui/DataTable";
+import { TextBox } from "@/components/form_controls/TextBox";
+import { Button } from "@/components/form_controls/Button";
+import { TextAlert } from "@/components/form_controls/TextAlert";
+import { DataTable } from "@/components/form_controls/DataTable";
 import { DataTableColumn } from "@/utils/types/data_table_props";
 import { departmentSchema } from "@/utils/validations/department_validation";
 import {
@@ -219,7 +219,7 @@ export function DepartmentForm() {
       header: "ชื่อหน่วยงานภายใน",
       render: (val) => (
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#1a73e8] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-primary-light text-primary flex items-center justify-center shrink-0">
             <Building2 className="w-4 h-4" />
           </div>
           <span className="font-semibold text-slate-800">
@@ -263,7 +263,7 @@ export function DepartmentForm() {
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 sm:p-8 transition-all">
         <div className="flex items-center justify-between pb-5 mb-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-[#1a73e8] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-primary-light text-primary flex items-center justify-center">
               <Building2 className="w-5 h-5" />
             </div>
             <div>

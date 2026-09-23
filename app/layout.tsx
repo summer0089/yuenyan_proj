@@ -15,17 +15,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Korjong : ระบบจองห้องประชุมออนไลน์",
-  description: "Korjong : ระบบจองห้องประชุมออนไลน์",
+  title: "Yuenyan : ระบบยืนยันตนรวมศูนย์เทศบาลเมืองแสนสุข",
+  description: "ระบบยืนยันตนรวมศูนย์เทศบาลเมืองแสนสุข",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
+      data-theme="yuenyan"
       lang="th"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <NavBar />
         <div className="flex-1">{children}</div>
         <Footer />

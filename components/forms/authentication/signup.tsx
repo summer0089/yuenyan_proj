@@ -4,12 +4,12 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signupFormSchema, SignupFormData } from "@/utils/validations/signup_form_validation";
-import { TextBox } from "@/components/form_ui/TextBox";
-import { PasswordBox } from "@/components/form_ui/PasswordBox";
-import { SelectBox } from "@/components/form_ui/SelectBox";
-import { Button } from "@/components/form_ui/Button";
-import { TextAlert } from "@/components/form_ui/TextAlert";
-import { MessageBox } from "@/components/form_ui/MessageBox";
+import { TextBox } from "@/components/form_controls/TextBox";
+import { PasswordBox } from "@/components/form_controls/PasswordBox";
+import { SelectBox } from "@/components/form_controls/SelectBox";
+import { Button } from "@/components/form_controls/Button";
+import { TextAlert } from "@/components/form_controls/TextAlert";
+import { MessageBox } from "@/components/form_controls/MessageBox";
 import { SelectOption } from "@/utils/types/selectbox_props";
 
 interface DepartmentItem {
@@ -139,7 +139,7 @@ export default function SignupForm() {
           <div className="text-center pt-2">
             <Link
               href="/u/signin"
-              className="text-sm font-semibold text-[#1a73e8] hover:text-[#1557b0] hover:underline"
+              className="text-sm font-semibold text-primary hover:text-primary-hover hover:underline"
             >
               ไปยังหน้าเข้าสู่ระบบทันที &rarr;
             </Link>
@@ -289,7 +289,7 @@ export default function SignupForm() {
             <span>มีบัญชีผู้ใช้งานอยู่แล้ว?</span>
             <Link
               href="/u/signin"
-              className="text-[#1a73e8] hover:text-[#1557b0] font-semibold transition-colors hover:underline"
+              className="text-primary hover:text-primary-hover font-semibold transition-colors hover:underline"
             >
               ลงชื่อเข้าใช้งาน
             </Link>
